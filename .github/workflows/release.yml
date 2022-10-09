@@ -20,7 +20,7 @@ jobs:
       - run: mkdir -p IconHeck
       - run: touch IconHeck.toc.tmp
       - run: cat IconHeck.toc > IconHeck.toc.tmp
-      - run: sed -i "s/@project-version@/$(git describe --abbrev=0)/g" IconHeck.toc.tmp
+      - run: sed -i "s/@project-version@/${{ env.RELEASE_VERSION }}/g" IconHeck.toc.tmp
       - run: cp *.lua ./IconHeck/
       - run: cp IconHeck.toc.tmp ./IconHeck/IconHeck.toc
 
