@@ -2,10 +2,10 @@
 ## Interface-Classic: 11403
 ## Interface-BCC: 20504
 ## Interface-Wrath: 30400
-## Title: IconHeck
+## Title: |cffFFD783Icon|r|cffff2068Heck|r
 ## Notes: So many lucky charms!
 ## Author: neurotech
-## Version: 0.0.1
+## Version: @project-version@
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 

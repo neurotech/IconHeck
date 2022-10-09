@@ -21,10 +21,12 @@ end
 
 local function ToggleIconHeck()
   if ICONHECK_ACTIVE then
-    print('icon heck active')
+    print('IconHeck is now |cff0eff7dactive|r')
+    SetRaidTarget("target", ICONHECK_ICON_LIST[ICONHECK_ACTIVE_ICON_INDEX])
+    ICONHECK_ACTIVE_ICON_INDEX = ICONHECK_ACTIVE_ICON_INDEX + 1
     SetIcon()
   else
-    print('icon heck INACTIVE')
+    print('IconHeck is now |cffff0e40inactive|r')
   end
 end
 
