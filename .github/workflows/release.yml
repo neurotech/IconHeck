@@ -1,0 +1,38 @@
+name: "Tagged Release"
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  tagged-release:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_VERSION: ${GITHUB_REF#refs/*/}
+
+    steps:
+      - name: Checkout code and generate TOC files
+        uses: actions/checkout@v3
+
+      - run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - run: mkdir -p IconHeck
+      - run: touch IconHeck.toc.tmp
+      - run: cat IconHeck.toc > IconHeck.toc.tmp
+      - run: sed -i "s/@project-version@/$(git describe --abbrev=0)/g" IconHeck.toc.tmp
+      - run: cp *.lua ./IconHeck/
+      - run: cp IconHeck.toc.tmp ./IconHeck/IconHeck.toc
+
+      - name: Build zip
+        uses: edgarrc/action-7z@v1.0.4
+        with:
+          args: 7z a IconHeck-${{ env.RELEASE_VERSION }}.zip ./IconHeck/
+
+      - name: Publish Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            IconHeck-${{ env.RELEASE_VERSION }}.zip
